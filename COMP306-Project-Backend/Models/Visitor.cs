@@ -14,8 +14,11 @@ namespace COMP306_Project_Backend.Models
         [DynamoDBHashKey]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.Password)]

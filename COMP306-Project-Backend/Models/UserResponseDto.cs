@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace COMP306_Project_Backend.Models
 {
-    public class UserDto
+    public class UserResponseDto
     {
-        private string password;
-
         public string Email { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -16,20 +14,15 @@ namespace COMP306_Project_Backend.Models
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
-        public void SetPassword(string newPassword)
-        {
-            this.password = newPassword;
-        }
 
-        public UserDto(
+        public UserResponseDto(
             string Email,
             string Name,
             string Address,
             string City,
             string Province,
             string PostalCode,
-            string PhoneNumber,
-            string password
+            string PhoneNumber
             )
         {
             this.Email = Email;
@@ -39,7 +32,6 @@ namespace COMP306_Project_Backend.Models
             this.Province = Province;
             this.PostalCode = PostalCode;
             this.PhoneNumber = PhoneNumber;
-            this.password = password;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using AutoMapper;
@@ -49,13 +50,16 @@ namespace COMP306_Project_Backend
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
+            app.UseSwaggerUI(optition => {
+                optition.SwaggerEndpoint
+            ("CovidTrailsSpec/swagger.json", "Covid API");
+        });
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("COMP306-Project-Backend/index.html");
+            //});
             //specify the swagger json endpoint
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/api/v1/swagger.json", "COVIDTrail API");
-            }
-            );
 
             if (env.IsDevelopment())
             {

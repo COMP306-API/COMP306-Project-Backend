@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace COMP306_Project_Backend.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     public class LogController : ControllerBase
     {
         private ILogRepository logRepository;

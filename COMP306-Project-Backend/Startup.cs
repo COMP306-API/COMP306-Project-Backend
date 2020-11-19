@@ -31,10 +31,7 @@ namespace COMP306_Project_Backend
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonDynamoDB>();
-<<<<<<< HEAD
 
-            //services.AddAutoMapper();
-=======
             services.AddSwaggerGen(services =>
             {
                 services.SwaggerDoc("CovidTrailsSpec",
@@ -44,7 +41,8 @@ namespace COMP306_Project_Backend
                         Version = "1"
                     });
             });
->>>>>>> 04e2ab99020d8d9955fc37c7ce78573b249d5fc7
+
+            services.AddAutoMapper(typeof (Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

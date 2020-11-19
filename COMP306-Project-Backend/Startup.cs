@@ -48,6 +48,15 @@ namespace COMP306_Project_Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            //specify the swagger json endpoint
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/api/v1/swagger.json", "COVIDTrail API");
+            }
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

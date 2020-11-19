@@ -19,11 +19,11 @@ namespace COMP306_Project_Backend.Data
             this.dynamoDBClient = dynamoDBClient;
         }
 
-        public async Task<Visitor> RegisterVisitor(Visitor visitor)
+        public async Task<User> RegisterVisitor(User visitor)
         {
             context = new DynamoDBContext(dynamoDBClient);
             await context.SaveAsync(visitor, default(System.Threading.CancellationToken));
-            Visitor newVisitor = await context.LoadAsync<Visitor>(visitor.Email, default(System.Threading.CancellationToken));
+            User newVisitor = await context.LoadAsync<User>(visitor.Email, default(System.Threading.CancellationToken));
             return visitor;
         }
 

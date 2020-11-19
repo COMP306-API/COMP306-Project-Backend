@@ -18,7 +18,7 @@ namespace COMP306_Project_Backend.Models
             {
                 client.CreateTableAsync(new CreateTableRequest
                 {
-                    TableName= "Visitors",
+                    TableName= "User",
                     ProvisionedThroughput= new ProvisionedThroughput { ReadCapacityUnits=5,WriteCapacityUnits=5},
                     KeySchema=new List<KeySchemaElement>
                     {

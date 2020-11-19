@@ -8,22 +8,26 @@ using System.Threading.Tasks;
 namespace COMP306_Project_Backend.Models
 {
 
-    [DynamoDBTable("Visitors")]
-    public class Visitor
+    [DynamoDBTable("User")]
+    public class User
     {
         [DynamoDBHashKey]
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public string Address { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Province { get; set; }
+        [Required]
+        public string PostalCode { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        public List<string> PlacesVisited { get; set; }
-
     }
 }

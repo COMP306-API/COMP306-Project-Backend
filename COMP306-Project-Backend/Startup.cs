@@ -30,6 +30,15 @@ namespace COMP306_Project_Backend
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonDynamoDB>();
+            services.AddSwaggerGen(services =>
+            {
+                services.SwaggerDoc("CovidTrailsSpec",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "Covid API",
+                        Version = "1"
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

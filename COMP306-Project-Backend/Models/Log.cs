@@ -13,13 +13,14 @@ namespace COMP306_Project_Backend.Models
     {
         [DynamoDBHashKey]
         [Required]
+        public string Id { get; set; }
+        [Required]
         public string BusinessEmail { get; set; }
-        [DynamoDBRangeKey]
-        [Required]
-        public string DateVisited { get; set; }
-        [Required]
-        public string TimeVisited { get; set; }
         [Required]
         public string ClientEmail { get; set; }
+        [Required]
+        public DateTime VisitedDate { get; set; }
+        [Required]
+        public DateTime VisitedTime { get; set; }
     }
 }

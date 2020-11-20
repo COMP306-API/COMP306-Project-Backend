@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
+using COMP306_Project_Backend.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +20,7 @@ namespace COMP306_Project_Backend
 {
     public class Startup
     {
+      
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -54,13 +57,7 @@ namespace COMP306_Project_Backend
                 optition.SwaggerEndpoint
             ("CovidTrailsSpec/swagger.json", "Covid API");
         });
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("COMP306-Project-Backend/index.html");
-            //});
-            //specify the swagger json endpoint
-
-
+          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

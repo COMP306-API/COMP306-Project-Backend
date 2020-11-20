@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using AutoMapper;
 using COMP306_Project_Backend.Models;
 using COMP306_Project_Backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +16,21 @@ namespace COMP306_Project_Backend.Controllers
     [Route("api/[controller]")]
     public class LogController : ControllerBase
     {
-        private ILogRepository logRepository;
         private readonly ILogger<LogController> _logger;
+        private IAmazonDynamoDB dynamoDBClient;
+        private AmazonDynamoDBClient client;
+        private DynamoDBContext context;
 
-        public LogController(ILogger<LogController> logger)
+        private readonly IMapper _mapper;
+        private ILogRepository _logRepository;
+        
+
+        public LogController(ILogger<LogController> logger, ILogRepository logRepository, IMapper mapper)
         {
             _logger = logger;
+            _mapper = mapper;
+            _logRepository = logRepository;
+
         }
 
         [HttpDelete("/{id}")]
@@ -28,9 +40,20 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpGet("/{email}/business")]
-        public Task<ActionResult<LogDto>> GetAllByBusiness(string email)
+        public async Task<ActionResult<LogDto>> GetAllByBusiness(string email)
         {
-            return null;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.USEast2);
+            context = new DynamoDBContext(client);
+            await TableOperations.CreateLogTable(client);
+
+            var businesslogs = await _logRepository.GetAllByBusiness(email);
+            var objDto = new List<LogDto>();
+            foreach (var obj in businesslogs)
+            {
+                objDto.Add(_mapper.Map<LogDto>(obj));
+            }
+            return Ok(businesslogs);
+           
         }
 
         [HttpGet("/{email}/customer")]

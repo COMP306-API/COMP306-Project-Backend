@@ -38,13 +38,13 @@ namespace COMP306_Project_Backend.Models
             });
         }
 
-        public static async Task CreateAddressTable(AmazonDynamoDBClient client)
+        public static async Task CreateLogTable(AmazonDynamoDBClient client)
         {
             await Task.Run(() =>
             {
                 client.CreateTableAsync(new CreateTableRequest
                 {
-                    TableName = "Address",
+                    TableName = "Log",
                     ProvisionedThroughput = new ProvisionedThroughput { ReadCapacityUnits = 5, WriteCapacityUnits = 5 },
                     KeySchema = new List<KeySchemaElement>
                     {

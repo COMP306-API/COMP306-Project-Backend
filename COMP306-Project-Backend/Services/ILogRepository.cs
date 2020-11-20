@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace COMP306_Project_Backend.Services
 {
-    interface ILogRepository
+    public interface ILogRepository
     {
         Task<IEnumerable<LogDto>> GetAllByBusiness(string email);
         Task<IEnumerable<LogDto>> GetAllByCustomer(string email);

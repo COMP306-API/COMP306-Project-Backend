@@ -17,7 +17,6 @@ namespace COMP306_Project_Backend.Services
         DynamoDBContext context;
         private readonly IMapper _mapper;
 
-        DynamoDBService _service = new DynamoDBService();
         public UserRepository(IAmazonDynamoDB dynamoDBClient, IMapper mapper)
         {
             this.dynamoDBClient = dynamoDBClient;

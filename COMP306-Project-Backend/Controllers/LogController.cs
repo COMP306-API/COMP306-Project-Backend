@@ -26,7 +26,7 @@ namespace COMP306_Project_Backend.Controllers
         [HttpDelete("/{id}")]
         public async Task<string> Delete(string id)
         {
-          return await  _logRepository.Delete(id);
+            return await _logRepository.Delete(id);
         }
 
         [HttpGet("/{email}/business")]
@@ -59,9 +59,7 @@ namespace COMP306_Project_Backend.Controllers
         [HttpPost("/create")]
         public async Task<ActionResult<LogDto>> Save(string businessEmail, string clientEmail)
         {
-
-            return Ok(await _logRepository.Save(
-                businessEmail,clientEmail));
+            return Ok(await _logRepository.Save(businessEmail, clientEmail));
         }
     }
 }

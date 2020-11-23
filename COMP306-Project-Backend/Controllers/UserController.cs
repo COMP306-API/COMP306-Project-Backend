@@ -114,5 +114,19 @@ namespace COMP306_Project_Backend.Controllers
 
             return Ok("Phone number successfully updated.");
         }
+
+        [HttpGet("/allBusinesses")]
+        [ProducesResponseType(200, Type = typeof(List<UserResponseDto>))]
+        public async Task<ActionResult<UserResponseDto>> GetAllBusiness()
+        {
+            var businesses = await _userRepo.GetAllBusinesses();
+
+            if (businesses == null)
+            {
+                return BadRequest(new { message = "No businesses found." });
+            }
+
+            return Ok(businesses);
+        }
     }
 }

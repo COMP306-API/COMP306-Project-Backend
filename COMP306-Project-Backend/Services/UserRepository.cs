@@ -1,6 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
+using Amazon.DynamoDBv2.DocumentModel;
 using AutoMapper;
 using COMP306_Project_Backend.Models;
 using System;
@@ -231,5 +232,13 @@ namespace COMP306_Project_Backend.Services
             return result;
         }
 
+        public async Task<IEnumerable<UserResponseDto>> GetAllBusinesses()
+        {
+            var businessConditions = new List<ScanCondition>();
+            businessConditions.Add(new ScanCondition("Type", ScanOperator.Equal, "business"));
+            List<UserResponseDto> businesses = await context.ScanAsync<UserResponseDto>(businessConditions).GetRemainingAsync();
+
+            return businesses;
+        }
     }
 }

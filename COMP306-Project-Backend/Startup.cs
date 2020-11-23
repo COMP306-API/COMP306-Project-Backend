@@ -63,7 +63,9 @@ namespace COMP306_Project_Backend
                 optition.SwaggerEndpoint
             ("CovidTrailsSpec/swagger.json", "Covid API");
         });
-          
+
+            app.UseCors(s => s.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -66,9 +66,16 @@ namespace COMP306_Project_Backend.Services
             return logs;
         }
 
-        public Task<LogDto> Save(LogDto logDto)
+        public async Task<LogDto> Save(string businessEmail, string clientEmail)
         {
-            throw new NotImplementedException();
+            string Id = Guid.NewGuid().ToString();
+            DateTime today = DateTime.Now;
+            string date= today.ToString("yyyy-MM-dd");
+            string time = today.ToString("HH:mm:ss");
+            LogDto logDto = new LogDto(Id,businessEmail, clientEmail,date, time);
+            var log = _mapper.Map<Log>(logDto);
+            await context.SaveAsync(log, default(System.Threading.CancellationToken));
+            return logDto;
         }
     }
 }

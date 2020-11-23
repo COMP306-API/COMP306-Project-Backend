@@ -14,12 +14,14 @@ namespace COMP306_Project_Backend.Models
         public string VisitedTime { get; set; }
 
         public LogDto(
+            string Id,
             string BusinessEmail,
             string ClientEmail,
             string VisitedDate,
             string VisitedTime
             )
         {
+            this.Id = Id;
             this.BusinessEmail = BusinessEmail;
             this.ClientEmail = ClientEmail;
             this.VisitedDate = VisitedDate;

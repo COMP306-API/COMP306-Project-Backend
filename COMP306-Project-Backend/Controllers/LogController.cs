@@ -47,11 +47,13 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(await _logRepository.GetAllByCustomer(email));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<LogDto>> Save([FromBody]LogDto logDto)
+
+        [HttpPost("/create")]
+        public async Task<ActionResult<LogDto>> Save(string businessEmail, string clientEmail)
         {
-            //var logsObj = _mapper.Map<Log>(logDto);
-            return  null;
+
+            return Ok(await _logRepository.Save(
+                businessEmail,clientEmail));
         }
     }
 }

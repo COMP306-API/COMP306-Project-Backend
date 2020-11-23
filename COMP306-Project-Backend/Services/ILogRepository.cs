@@ -10,7 +10,7 @@ namespace COMP306_Project_Backend.Services
     {
         Task<IEnumerable<LogDto>> GetAllByBusiness(string email);
         Task<IEnumerable<LogDto>> GetAllByCustomer(string email);
-        Task<LogDto> Save(LogDto logDto);
+        Task<LogDto> Save(string businessEmail, string clientEmail);
         void Delete(string id);
     }
 }

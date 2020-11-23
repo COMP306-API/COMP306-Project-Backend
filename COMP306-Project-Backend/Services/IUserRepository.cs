@@ -11,9 +11,9 @@ namespace COMP306_Project_Backend.Services
         Task <UserResponseDto> Authenticate(AuthenticationDto authDto);
         Task<bool> IsExistingUser(string email);
         Task<UserResponseDto> GetById(string email);
-        Task<UserResponseDto> UpdateName(string email, string name);
-        Task<UserResponseDto> UpdateAddress(string email, AddressDto addressDto);
-        Task<UserResponseDto> UpdatePhoneNumber(string email, string phoneNumber);
+        Task<bool> UpdateName(string email, string name);
+        Task<bool> UpdateAddress(string email, AddressDto addressDto);
+        Task<bool> UpdatePhoneNumber(string email, string phoneNumber);
         Task<bool> UpdatePassword(AuthenticationDto authenticationDto);
         Task<string> Save(UserDto userDto);
     }

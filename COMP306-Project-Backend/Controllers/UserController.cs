@@ -66,23 +66,27 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpPut("/address")]
-        public Task<ActionResult<UserResponseDto>> UpdateAddress(AddressDto addressDto)
+        public async Task<ActionResult<bool>> UpdateAddress(string email, [FromBody] AddressDto addressDto)
         {
-            return null;
+            bool result = await _userRepo.UpdateAddress(email, addressDto);
+            if (!result)
+            {
+                return BadRequest("Email is not valid");
+            }
+            return Ok(result);
         }
 
         [HttpPut("/name/{name}")]
-        public async Task<ActionResult<User>> UpdateName(string emailId, [FromBody] UserDto userDto)
+        public async Task<ActionResult<bool>> UpdateName(string emailId, string name)
         {
-            //var mapUser = _mapper.Map<User>(userDto);
-            //var userName = await _userRepo.UpdateName(emailId, mapUser);
-            //var mapuserDto = _mapper.Map<UserDto>(userName);
-            //return CreatedAtAction(nameof(GetById), new
-            //{
-            //    emailId = mapuserDto.Email,
-            //    userDto
-            //});
-            return null;
+            bool result = await _userRepo.UpdateName(emailId, name);
+
+            if (!result)
+            {
+                return BadRequest("Email is not valid");
+            }
+
+            return Ok(result);
         }
 
         [HttpPut("/password")]
@@ -92,9 +96,16 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpPut("/phone/{phoneNumber}")]
-        public Task<ActionResult<UserResponseDto>> UpdatePhoneNumber(string phoneNumber)
+        public async Task<ActionResult<bool>> UpdatePhoneNumber(string emailId, string phoneNumber)
         {
-            return null;
+            bool result = await _userRepo.UpdatePhoneNumber(emailId, phoneNumber);
+
+            if (!result)
+            {
+                return BadRequest("Email is not valid");
+            }
+
+            return Ok(result);
         }
     }
 }

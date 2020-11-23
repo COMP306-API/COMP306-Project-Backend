@@ -17,9 +17,6 @@ namespace COMP306_Project_Backend.Controllers
     public class LogController : ControllerBase
     {
         private readonly ILogger<LogController> _logger;
-        private IAmazonDynamoDB dynamoDBClient;
-        private AmazonDynamoDBClient client;
-        private DynamoDBContext context;
         private ILogRepository _logRepository;
 
         public LogController(ILogger<LogController> logger, ILogRepository logRepository, IMapper mapper)

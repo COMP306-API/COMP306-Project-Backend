@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.Model;
 using AutoMapper;
 using COMP306_Project_Backend.Data;
 using COMP306_Project_Backend.Models;
@@ -56,24 +57,156 @@ namespace COMP306_Project_Backend.Services
             return false;
         }
 
-        public Task<UserResponseDto> UpdateName(string email, string name)
+        public async Task<bool> UpdateName(string email, string name)
         {
-            throw new NotImplementedException();
+            bool isExist = await IsExistingUser(email);
+
+            if (!isExist)
+            {
+                return false;
+            }
+
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+            {
+                { "Email", new AttributeValue { S = email} }
+            };
+
+            Dictionary<string, AttributeValueUpdate> update = new Dictionary<string, AttributeValueUpdate>();
+            update["Name"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = name }
+            };
+
+            UpdateItemRequest request = new UpdateItemRequest
+            {
+                TableName = "User",
+                Key = key,
+                AttributeUpdates = update
+            };
+
+            await client.UpdateItemAsync(request);
+
+            return true;
         }
 
-        public Task<UserResponseDto> UpdateAddress(string email, AddressDto addressDto)
+        public async Task<bool> UpdateAddress(string email, AddressDto addressDto)
         {
-            throw new NotImplementedException();
+            bool isExist = await IsExistingUser(email);
+
+            if (!isExist)
+            {
+                return false;
+            }
+
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+            {
+                { "Email", new AttributeValue { S = email} }
+            };
+
+            Dictionary<string, AttributeValueUpdate> update = new Dictionary<string, AttributeValueUpdate>();
+            update["Address"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = addressDto.Address }
+            };
+
+            update["City"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = addressDto.City }
+            };
+
+            update["Province"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = addressDto.Province }
+            };
+
+            update["PostalCode"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = addressDto.PostalCode }
+            };
+
+            UpdateItemRequest request = new UpdateItemRequest
+            {
+                TableName = "User",
+                Key = key,
+                AttributeUpdates = update
+            };
+
+            await client.UpdateItemAsync(request);
+
+            return true;
         }
 
-        public Task<UserResponseDto> UpdatePhoneNumber(string email, string phoneNumber)
+        public async Task<bool> UpdatePhoneNumber(string email, string phoneNumber)
         {
-            throw new NotImplementedException();
+
+            bool isExist = await IsExistingUser(email);
+
+            if (!isExist)
+            {
+                return false;
+            }
+
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+            {
+                { "Email", new AttributeValue { S = email} }
+            };
+
+            Dictionary<string, AttributeValueUpdate> update = new Dictionary<string, AttributeValueUpdate>();
+            update["PhoneNumber"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = phoneNumber }
+            };
+
+            UpdateItemRequest request = new UpdateItemRequest
+            {
+                TableName = "User",
+                Key = key,
+                AttributeUpdates = update
+            };
+
+            await client.UpdateItemAsync(request);
+
+            return true;
         }
 
-        public Task<bool> UpdatePassword(AuthenticationDto authenticationDto)
+        public async Task<bool> UpdatePassword(AuthenticationDto authenticationDto)
         {
-            throw new NotImplementedException();
+
+            bool isExist = await IsExistingUser(authenticationDto.Email);
+
+            if (!isExist)
+            {
+                return false;
+            }
+
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+            {
+                { "Email", new AttributeValue { S = authenticationDto.Email} }
+            };
+
+            Dictionary<string, AttributeValueUpdate> update = new Dictionary<string, AttributeValueUpdate>();
+            update["Password"] = new AttributeValueUpdate()
+            {
+                Action = AttributeAction.PUT,
+                Value = new AttributeValue { S = authenticationDto.Password }
+            };
+
+            UpdateItemRequest request = new UpdateItemRequest
+            {
+                TableName = "User",
+                Key = key,
+                AttributeUpdates = update
+            };
+
+            await client.UpdateItemAsync(request);
+
+            return true;
         }
 
         public async Task<string> Save(UserDto userDto)

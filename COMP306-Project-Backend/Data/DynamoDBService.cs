@@ -24,16 +24,6 @@ namespace COMP306_Project_Backend.Data
             this.dynamoDBClient = dynamoDBClient;
         }
 
-        //Retreiving logs from DynamoDB
-        public async Task<List<Log>> GetLogs()
-        {
-           
-            context = new DynamoDBContext(client);
-            var logsConditions = new List<ScanCondition>();
-            List<Log> logs = await context.ScanAsync<Log>(logsConditions).GetRemainingAsync();
-            return logs;
-        }
-
         //creating new user
         public async Task<User> RegisterVisitor(User visitor)
         {

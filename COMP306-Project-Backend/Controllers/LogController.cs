@@ -20,17 +20,12 @@ namespace COMP306_Project_Backend.Controllers
         private IAmazonDynamoDB dynamoDBClient;
         private AmazonDynamoDBClient client;
         private DynamoDBContext context;
-
-        private readonly IMapper _mapper;
         private ILogRepository _logRepository;
-
 
         public LogController(ILogger<LogController> logger, ILogRepository logRepository, IMapper mapper)
         {
             _logger = logger;
-            _mapper = mapper;
             _logRepository = logRepository;
-
         }
 
         [HttpDelete("/{id}")]
@@ -39,37 +34,24 @@ namespace COMP306_Project_Backend.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("/{email}/business")]
         [ProducesResponseType(200, Type = typeof(List<LogDto>))]
         public async Task<ActionResult<LogDto>> GetAllByBusiness(string email)
         {
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.USEast2);
-            context = new DynamoDBContext(client);
-            // await TableOperations.CreateLogTable(client);
-         
-
-            var businesslogs = await _logRepository.GetAllByBusiness(email);
-            var objDto = new List<LogDto>();
-            foreach (var obj in businesslogs)
-            {
-                objDto.Add(_mapper.Map<LogDto>(obj));
-            }
-            return Ok(businesslogs);
-
+            return Ok(await _logRepository.GetAllByBusiness(email));
         }
 
         [HttpGet("/{email}/customer")]
-        public Task<ActionResult<LogDto>> GetAllByCustomer(string email)
+        public async Task<ActionResult<LogDto>> GetAllByCustomer(string email)
         {
-            return null;
+            return Ok(await _logRepository.GetAllByCustomer(email));
         }
 
         [HttpPost]
         public async Task<ActionResult<LogDto>> Save([FromBody]LogDto logDto)
         {
-        
-            var logsObj = _mapper.Map<Log>(logDto);
+            //var logsObj = _mapper.Map<Log>(logDto);
             return  null;
-    }
+        }
     }
 }

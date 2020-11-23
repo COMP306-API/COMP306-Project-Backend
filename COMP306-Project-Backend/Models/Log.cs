@@ -19,9 +19,9 @@ namespace COMP306_Project_Backend.Models
         [Required]
         public string ClientEmail { get; set; }
         [Required]
-        public DateTime VisitedDate { get; set; }
+        public string VisitedDate { get; set; }
         [Required]
-        public DateTime VisitedTime { get; set; }
+        public string VisitedTime { get; set; }
     }
 }
 

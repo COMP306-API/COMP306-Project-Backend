@@ -25,6 +25,7 @@ namespace COMP306_Project_Backend.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
+
         //Authenticating user by Email ID and password
         [HttpPost("/authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticationDto authenticationDto)
@@ -48,13 +49,6 @@ namespace COMP306_Project_Backend.Controllers
                 return NotFound();
             }
             return Ok(result);
-        }
-
-        [HttpGet("/{email}/existingUser")]
-        [ProducesResponseType(200, Type = typeof(List<LogDto>))]
-        public Task<bool> IsExistingUser(string email)
-        {
-            return _userRepo.IsExistingUser(email);
         }
 
         //creating user

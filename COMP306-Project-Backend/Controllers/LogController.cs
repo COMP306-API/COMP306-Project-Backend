@@ -16,15 +16,10 @@ namespace COMP306_Project_Backend.Controllers
     [Route("api/[controller]")]
     public class LogController : ControllerBase
     {
-        private readonly ILogger<LogController> _logger;
-        private IAmazonDynamoDB dynamoDBClient;
-        private AmazonDynamoDBClient client;
-        private DynamoDBContext context;
         private ILogRepository _logRepository;
 
-        public LogController(ILogger<LogController> logger, ILogRepository logRepository, IMapper mapper)
+        public LogController(ILogRepository logRepository)
         {
-            _logger = logger;
             _logRepository = logRepository;
         }
 
@@ -38,15 +33,28 @@ namespace COMP306_Project_Backend.Controllers
         [ProducesResponseType(200, Type = typeof(List<LogDto>))]
         public async Task<ActionResult<LogDto>> GetAllByBusiness(string email)
         {
-            return Ok(await _logRepository.GetAllByBusiness(email));
+            var logs = await _logRepository.GetAllByBusiness(email);
+
+            if (logs == null)
+            {
+                return BadRequest(new { message = "No business found with the given email." });
+            }
+
+            return Ok(logs);
         }
 
         [HttpGet("/{email}/customer")]
         public async Task<ActionResult<LogDto>> GetAllByCustomer(string email)
         {
-            return Ok(await _logRepository.GetAllByCustomer(email));
-        }
+            var logs = await _logRepository.GetAllByCustomer(email);
 
+            if (logs == null)
+            {
+                return BadRequest(new { message = "No customer found with the given email." });
+            }
+
+            return Ok(logs);
+        }
 
         [HttpPost("/create")]
         public async Task<ActionResult<LogDto>> Save(string businessEmail, string clientEmail)

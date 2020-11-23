@@ -16,7 +16,6 @@ namespace COMP306_Project_Backend.Mappings
             CreateMap<User, AddressDto>().ReverseMap();
             CreateMap<User, AuthenticationDto>().ReverseMap();
             CreateMap<Log, LogDto>().ReverseMap();
-         
         }
     }
 }

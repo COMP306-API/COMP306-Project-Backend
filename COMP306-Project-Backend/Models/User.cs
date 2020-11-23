@@ -15,18 +15,25 @@ namespace COMP306_Project_Backend.Models
         [EmailAddress]
         public string Email { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string Name { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string Address { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string City { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string Province { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string PostalCode { get; set; }
         [Required]
+        [DynamoDBProperty]
         public string PhoneNumber { get; set; }
         [Required]
+        [DynamoDBProperty]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

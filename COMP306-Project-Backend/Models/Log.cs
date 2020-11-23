@@ -24,3 +24,4 @@ namespace COMP306_Project_Backend.Models
         public DateTime VisitedTime { get; set; }
     }
 }
+

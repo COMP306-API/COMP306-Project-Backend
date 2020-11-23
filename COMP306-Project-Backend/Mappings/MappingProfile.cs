@@ -11,11 +11,12 @@ namespace COMP306_Project_Backend.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<User, UserResponseDto>();
-            CreateMap<User, AddressDto>();
-            CreateMap<User, AuthenticationDto>();
-            CreateMap<Log, LogDto>();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserResponseDto>().ReverseMap();
+            CreateMap<User, AddressDto>().ReverseMap();
+            CreateMap<User, AuthenticationDto>().ReverseMap();
+            CreateMap<Log, LogDto>().ReverseMap();
+         
         }
     }
 }

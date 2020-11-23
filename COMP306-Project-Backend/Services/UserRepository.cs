@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using COMP306_Project_Backend.Data;
 using COMP306_Project_Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -14,39 +15,44 @@ namespace COMP306_Project_Backend.Services
         AmazonDynamoDBClient client;
         DynamoDBContext context;
 
+        DynamoDBService _service = new DynamoDBService();
         public UserRepository(IAmazonDynamoDB dynamoDBClient)
         {
             this.dynamoDBClient = dynamoDBClient;
         }
 
-        public Task<bool> Authenticate(AuthenticationDto authenticationDto)
+        public async Task<User> Authenticate(string email, string password)
         {
-            throw new NotImplementedException();
+            return await  _service.GetUser(email,password);
+          
         }
-
-        public Task<UserResponseDto> GetById(string email)
+        //Get user by  email Id
+        public async Task<User> GetById(string email)
         {
-            throw new NotImplementedException();
+            return await _service.GetById(email);
+
         }
 
         public Task<bool> IsExistingUser(string email)
         {
             throw new NotImplementedException();
         }
+        //Creating a new user 
+        public async Task<User> Save(User user)
+        {
+            
+            return await _service.RegisterVisitor(user);
+            
+        }
 
-        public Task<UserResponseDto> Save(UserDto userDto)
+        public Task<User> UpdateAddress(AddressDto addressDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserResponseDto> UpdateAddress(AddressDto addressDto)
+        public async Task<User> UpdateName(string email, User user)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserResponseDto> UpdateName(string name)
-        {
-            throw new NotImplementedException();
+            return await _service.UpdateUserName(email,user);
         }
 
         public Task<bool> UpdatePassword(AuthenticationDto authenticationDto)
@@ -54,7 +60,7 @@ namespace COMP306_Project_Backend.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserResponseDto> UpdatePhoneNumber(string phoneNumber)
+        public Task<User> UpdatePhoneNumber(string phoneNumber)
         {
             throw new NotImplementedException();
         }

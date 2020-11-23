@@ -8,9 +8,9 @@ namespace COMP306_Project_Backend.Services
 {
     public interface ILogRepository
     {
-        Task<IEnumerable<LogDto>> GetAllByBusiness(string email);
-        Task<IEnumerable<LogDto>> GetAllByCustomer(string email);
-        Task<LogDto> Save(LogDto logDto);
+        Task<IEnumerable<Log>> GetAllByBusiness(string email);
+        Task<IEnumerable<Log>> GetAllByCustomer(string email);
+        Task<Log> Save(Log logDto);
         void Delete(string id);
     }
 }

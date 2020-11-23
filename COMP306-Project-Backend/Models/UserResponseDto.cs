@@ -14,6 +14,7 @@ namespace COMP306_Project_Backend.Models
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
+     
 
         public UserResponseDto(
             string Email,
@@ -23,6 +24,7 @@ namespace COMP306_Project_Backend.Models
             string Province,
             string PostalCode,
             string PhoneNumber
+     
             )
         {
             this.Email = Email;
@@ -32,6 +34,7 @@ namespace COMP306_Project_Backend.Models
             this.Province = Province;
             this.PostalCode = PostalCode;
             this.PhoneNumber = PhoneNumber;
+         
         }
     }
 }

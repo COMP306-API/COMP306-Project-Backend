@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace COMP306_Project_Backend.Services
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
-        Task<bool> Authenticate(AuthenticationDto authenticationDto);
+        Task <User> Authenticate(string email, string password);
         Task<bool> IsExistingUser(string email);
-        Task<UserResponseDto> GetById(string email);
-        Task<UserResponseDto> UpdateName(string name);
-        Task<UserResponseDto> UpdateAddress(AddressDto addressDto);
-        Task<UserResponseDto> UpdatePhoneNumber(string phoneNumber);
+        Task<User> GetById(string email);
+        Task<User> UpdateName(string name, User user);
+        Task<User> UpdateAddress(AddressDto addressDto);
+        Task<User> UpdatePhoneNumber(string phoneNumber);
         Task<bool> UpdatePassword(AuthenticationDto authenticationDto);
-        Task<UserResponseDto> Save(UserDto userDto);
+        Task<User> Save(User userDto);
     }
 }

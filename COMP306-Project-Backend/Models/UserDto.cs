@@ -16,6 +16,8 @@ namespace COMP306_Project_Backend.Models
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
+
+
         public void SetPassword(string newPassword)
         {
             this.password = newPassword;

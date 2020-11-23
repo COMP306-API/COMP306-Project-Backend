@@ -59,6 +59,7 @@ namespace COMP306_Project_Backend.Models
                         new AttributeDefinition{AttributeName="Id",AttributeType=ScalarAttributeType.S}
                     }
                 });
+                Thread.Sleep(5000);
             });
         }
     }

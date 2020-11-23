@@ -7,6 +7,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
 using COMP306_Project_Backend.Models;
+using COMP306_Project_Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,10 +32,13 @@ namespace COMP306_Project_Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+            //services.AddControllers();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonDynamoDB>();
+          
+
 
             services.AddSwaggerGen(services =>
             {
@@ -45,8 +49,10 @@ namespace COMP306_Project_Backend
                         Version = "1"
                     });
             });
-
+            services.AddTransient<ILogRepository, LogRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof (Startup));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

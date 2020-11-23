@@ -23,7 +23,7 @@ namespace COMP306_Project_Backend.Controllers
 
         private readonly IMapper _mapper;
         private ILogRepository _logRepository;
-        
+
 
         public LogController(ILogger<LogController> logger, ILogRepository logRepository, IMapper mapper)
         {
@@ -39,12 +39,14 @@ namespace COMP306_Project_Backend.Controllers
 
         }
 
-        [HttpGet("/{email}/business")]
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<LogDto>))]
         public async Task<ActionResult<LogDto>> GetAllByBusiness(string email)
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.USEast2);
             context = new DynamoDBContext(client);
-            await TableOperations.CreateLogTable(client);
+            // await TableOperations.CreateLogTable(client);
+         
 
             var businesslogs = await _logRepository.GetAllByBusiness(email);
             var objDto = new List<LogDto>();
@@ -53,7 +55,7 @@ namespace COMP306_Project_Backend.Controllers
                 objDto.Add(_mapper.Map<LogDto>(obj));
             }
             return Ok(businesslogs);
-           
+
         }
 
         [HttpGet("/{email}/customer")]
@@ -63,9 +65,11 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpPost]
-        public Task<ActionResult<LogDto>> Save(LogDto logDto)
+        public async Task<ActionResult<LogDto>> Save([FromBody]LogDto logDto)
         {
-            return null;
-        }
+        
+            var logsObj = _mapper.Map<Log>(logDto);
+            return  null;
+    }
     }
 }

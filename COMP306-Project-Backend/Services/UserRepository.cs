@@ -1,7 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
-using COMP306_Project_Backend.Data;
 using COMP306_Project_Backend.Models;
 using System;
 using System.Collections.Generic;

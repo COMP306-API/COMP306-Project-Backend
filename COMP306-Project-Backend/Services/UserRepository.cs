@@ -26,21 +26,24 @@ namespace COMP306_Project_Backend.Services
             context = new DynamoDBContext(client);
         }
 
-        public async Task<User> Authenticate(string email, string password)
+        public async Task<UserResponseDto> Authenticate(AuthenticationDto authDto)
         {
-            return await  _service.GetUser(email,password);
-          
+            User user = await context.LoadAsync<User>(authDto.Email, default(System.Threading.CancellationToken));
+
+            if (user != null && !user.Password.Equals(authDto.Password))
+            {
+                return null;
+            }
+
+            return MapToUserResponseDto(user);
         }
+
         //Get user by  email Id
         public async Task<UserResponseDto> GetById(string email)
         {
             User user = await context.LoadAsync<User>(email, default(System.Threading.CancellationToken));
-            UserResponseDto result = null;
-            if (user != null)
-            {
-                result = _mapper.Map<UserResponseDto>(user);
-            }
-            return result;
+
+            return MapToUserResponseDto(user);
         }
 
         public async Task<bool> IsExistingUser(string email)
@@ -49,15 +52,14 @@ namespace COMP306_Project_Backend.Services
             {
                 return true;
             }
+
             return false;
         }
 
         //Creating a new user 
         public async Task<User> Save(User user)
         {
-            
             return await _service.RegisterVisitor(user);
-            
         }
 
         public Task<User> UpdateAddress(AddressDto addressDto)
@@ -79,5 +81,16 @@ namespace COMP306_Project_Backend.Services
         {
             throw new NotImplementedException();
         }
+
+        private UserResponseDto MapToUserResponseDto(User user)
+        {
+            UserResponseDto result = null;
+            if (user != null)
+            {
+                result = _mapper.Map<UserResponseDto>(user);
+            }
+            return result;
+        }
+
     }
 }

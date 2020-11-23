@@ -56,20 +56,19 @@ namespace COMP306_Project_Backend.Services
             return false;
         }
 
-        //Creating a new user 
-        public async Task<User> Save(User user)
-        {
-            return await _service.RegisterVisitor(user);
-        }
-
-        public Task<User> UpdateAddress(AddressDto addressDto)
+        public Task<UserResponseDto> UpdateName(string email, string name)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<User> UpdateName(string email, User user)
+        public Task<UserResponseDto> UpdateAddress(string email, AddressDto addressDto)
         {
-            return await _service.UpdateUserName(email,user);
+            throw new NotImplementedException();
+        }
+
+        public Task<UserResponseDto> UpdatePhoneNumber(string email, string phoneNumber)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<bool> UpdatePassword(AuthenticationDto authenticationDto)
@@ -77,9 +76,18 @@ namespace COMP306_Project_Backend.Services
             throw new NotImplementedException();
         }
 
-        public Task<User> UpdatePhoneNumber(string phoneNumber)
+        public async Task<string> Save(UserDto userDto)
         {
-            throw new NotImplementedException();
+            bool isExisting = await IsExistingUser(userDto.Email);
+
+            if (isExisting)
+            {
+                return null;
+            }
+
+            var user = _mapper.Map<User>(userDto);
+            await context.SaveAsync(user, default(System.Threading.CancellationToken));
+            return "Successfully saved.";
         }
 
         private UserResponseDto MapToUserResponseDto(User user)

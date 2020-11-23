@@ -9,6 +9,7 @@ namespace COMP306_Project_Backend.Models
     {
         public string Email { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
@@ -18,6 +19,7 @@ namespace COMP306_Project_Backend.Models
         public UserResponseDto(
             string Email,
             string Name,
+            string Type,
             string Address,
             string City,
             string Province,
@@ -27,6 +29,7 @@ namespace COMP306_Project_Backend.Models
         {
             this.Email = Email;
             this.Name = Name;
+            this.Type = Type;
             this.Address = Address;
             this.City = City;
             this.Province = Province;

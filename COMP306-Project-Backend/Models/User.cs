@@ -19,6 +19,9 @@ namespace COMP306_Project_Backend.Models
         public string Name { get; set; }
         [Required]
         [DynamoDBProperty]
+        public string Type { get; set; }
+        [Required]
+        [DynamoDBProperty]
         public string Address { get; set; }
         [Required]
         [DynamoDBProperty]

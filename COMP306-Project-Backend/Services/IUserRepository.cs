@@ -11,10 +11,10 @@ namespace COMP306_Project_Backend.Services
         Task <UserResponseDto> Authenticate(AuthenticationDto authDto);
         Task<bool> IsExistingUser(string email);
         Task<UserResponseDto> GetById(string email);
-        Task<User> UpdateName(string name, User user);
-        Task<User> UpdateAddress(AddressDto addressDto);
-        Task<User> UpdatePhoneNumber(string phoneNumber);
+        Task<UserResponseDto> UpdateName(string email, string name);
+        Task<UserResponseDto> UpdateAddress(string email, AddressDto addressDto);
+        Task<UserResponseDto> UpdatePhoneNumber(string email, string phoneNumber);
         Task<bool> UpdatePassword(AuthenticationDto authenticationDto);
-        Task<User> Save(User userDto);
+        Task<string> Save(UserDto userDto);
     }
 }

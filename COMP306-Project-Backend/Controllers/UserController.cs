@@ -58,18 +58,17 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         //creating user
-        [HttpPost]
-        public async Task<ActionResult<UserResponseDto>> Save([FromBody] UserDto userDto)
+        [HttpPost("/createUser")]
+        public async Task<ActionResult<string>> Save([FromBody] UserDto userDto)
         {
-            var mapUser = _mapper.Map<User>(userDto);
+            string result = await _userRepo.Save(userDto);
 
-            User user = await _userRepo.Save(mapUser);
-            var userdto = _mapper.Map<UserDto>(user);
-            return CreatedAtAction(nameof(GetById),
-                new {
-                    emailId = userDto.Email
-                },
-               userDto);
+            if (result == null)
+            {
+                return BadRequest("Email already exist.");
+            }
+
+            return Ok(result);
         }
 
         [HttpPut("/address")]
@@ -81,14 +80,15 @@ namespace COMP306_Project_Backend.Controllers
         [HttpPut("/name/{name}")]
         public async Task<ActionResult<User>> UpdateName(string emailId, [FromBody] UserDto userDto)
         {
-            var mapUser = _mapper.Map<User>(userDto);
-            var userName = await _userRepo.UpdateName(emailId, mapUser);
-            var mapuserDto = _mapper.Map<UserDto>(userName);
-            return CreatedAtAction(nameof(GetById), new
-            {
-                emailId = mapuserDto.Email,
-                userDto
-            });
+            //var mapUser = _mapper.Map<User>(userDto);
+            //var userName = await _userRepo.UpdateName(emailId, mapUser);
+            //var mapuserDto = _mapper.Map<UserDto>(userName);
+            //return CreatedAtAction(nameof(GetById), new
+            //{
+            //    emailId = mapuserDto.Email,
+            //    userDto
+            //});
+            return null;
         }
 
         [HttpPut("/password")]

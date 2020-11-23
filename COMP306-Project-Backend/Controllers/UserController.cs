@@ -66,18 +66,18 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpPut("/address")]
-        public async Task<ActionResult<bool>> UpdateAddress(string email, [FromBody] AddressDto addressDto)
+        public async Task<ActionResult<string>> UpdateAddress(string email, [FromBody] AddressDto addressDto)
         {
             bool result = await _userRepo.UpdateAddress(email, addressDto);
             if (!result)
             {
                 return BadRequest("Email is not valid");
             }
-            return Ok(result);
+            return Ok("Address successfully updated.");
         }
 
         [HttpPut("/name/{name}")]
-        public async Task<ActionResult<bool>> UpdateName(string emailId, string name)
+        public async Task<ActionResult<string>> UpdateName(string emailId, string name)
         {
             bool result = await _userRepo.UpdateName(emailId, name);
 
@@ -86,17 +86,24 @@ namespace COMP306_Project_Backend.Controllers
                 return BadRequest("Email is not valid");
             }
 
-            return Ok(result);
+            return Ok("Name successfully updated.");
         }
 
         [HttpPut("/password")]
-        public Task<ActionResult<bool>> UpdatePassword(AuthenticationDto authenticationDto)
+        public async Task<ActionResult<string>> UpdatePassword([FromBody] AuthenticationDto authenticationDto)
         {
-            return null;
+            bool result = await _userRepo.UpdatePassword(authenticationDto);
+
+            if (!result)
+            {
+                return BadRequest("Email is not valid");
+            }
+
+            return Ok("Password updated");
         }
 
         [HttpPut("/phone/{phoneNumber}")]
-        public async Task<ActionResult<bool>> UpdatePhoneNumber(string emailId, string phoneNumber)
+        public async Task<ActionResult<string>> UpdatePhoneNumber(string emailId, string phoneNumber)
         {
             bool result = await _userRepo.UpdatePhoneNumber(emailId, phoneNumber);
 
@@ -105,7 +112,7 @@ namespace COMP306_Project_Backend.Controllers
                 return BadRequest("Email is not valid");
             }
 
-            return Ok(result);
+            return Ok("Phone number successfully updated.");
         }
     }
 }

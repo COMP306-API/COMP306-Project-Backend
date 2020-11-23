@@ -16,17 +16,15 @@ namespace COMP306_Project_Backend.Services
         AmazonDynamoDBClient client;
         DynamoDBContext context;
         private readonly IMapper _mapper;
-        private UserRepository userRepository;
-        private IUserRepository _userRepo;
+        private IUserRepository _userRepository;
 
-        public LogRepository(IAmazonDynamoDB dynamoDBClient, IMapper mapper, IUserRepository userRepo)
+        public LogRepository(IAmazonDynamoDB dynamoDBClient, IMapper mapper, IUserRepository userRepository)
         {
             this.dynamoDBClient = dynamoDBClient;
             client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.USEast2);
             context = new DynamoDBContext(client);
             _mapper = mapper;
-            this.userRepository = new UserRepository(dynamoDBClient, mapper);
-            _userRepo = userRepo;
+            _userRepository = userRepository;
         }
 
         public async Task<string> Delete(string id)
@@ -39,7 +37,7 @@ namespace COMP306_Project_Backend.Services
 
         private async Task<bool> UserValidation(string email, string expectedType)
         {
-            UserResponseDto user = await _userRepo.GetById(email);
+            UserResponseDto user = await _userRepository.GetById(email);
 
             if (user != null && user.Type.Equals(expectedType))
             {

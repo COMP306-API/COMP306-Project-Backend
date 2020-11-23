@@ -25,6 +25,7 @@ namespace COMP306_Project_Backend.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
+
         //Authenticating user by Email ID and password
         [HttpPost("/authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticationDto authenticationDto)

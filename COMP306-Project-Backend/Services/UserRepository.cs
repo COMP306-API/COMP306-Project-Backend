@@ -2,7 +2,6 @@
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using AutoMapper;
-using COMP306_Project_Backend.Data;
 using COMP306_Project_Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,6 @@ namespace COMP306_Project_Backend.Services
         DynamoDBContext context;
         private readonly IMapper _mapper;
 
-        DynamoDBService _service = new DynamoDBService();
         public UserRepository(IAmazonDynamoDB dynamoDBClient, IMapper mapper)
         {
             this.dynamoDBClient = dynamoDBClient;

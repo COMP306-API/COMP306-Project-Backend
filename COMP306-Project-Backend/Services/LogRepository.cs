@@ -26,9 +26,12 @@ namespace COMP306_Project_Backend.Services
             context = new DynamoDBContext(client);
         }
 
-        public void Delete(string id)
+        public async Task< string> Delete(string id)
         {
-            throw new NotImplementedException();
+            Log log =await  context.LoadAsync<Log>(id, default(System.Threading.CancellationToken));
+            await context.DeleteAsync(log, default(System.Threading.CancellationToken));
+            return "Successfully deleted";
+
         }
 
         public async Task<IEnumerable<LogDto>> GetAllByBusiness(string email)

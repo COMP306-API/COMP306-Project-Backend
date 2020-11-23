@@ -29,9 +29,9 @@ namespace COMP306_Project_Backend.Controllers
         }
 
         [HttpDelete("/{id}")]
-        public void Delete(string id)
+        public async Task<string> Delete(string id)
         {
-
+          return await  _logRepository.Delete(id);
         }
 
         [HttpGet("/{email}/business")]

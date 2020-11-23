@@ -40,24 +40,19 @@ namespace COMP306_Project_Backend.Controllers
         [HttpGet("/{email}")]
         public async Task<ActionResult<UserResponseDto>> GetById(string email)
         {
-            // await TableOperations.CreateVisitorTable(client);
-
-            var userById = await _userRepo.GetById(email);
-            if (userById == null)
+            var result = await _userRepo.GetById(email);
+            if (result == null)
             {
                 return NotFound();
             }
-            var userObj = _mapper.Map<UserDto>(userById);
-            return Ok(userObj);
-
+            return Ok(result);
         }
 
         [HttpGet("/{email}/existingUser")]
+        [ProducesResponseType(200, Type = typeof(List<LogDto>))]
         public Task<bool> IsExistingUser(string email)
         {
-
-            var userExistsAlready = _userRepo.IsExistingUser(email);
-            return userExistsAlready;
+            return _userRepo.IsExistingUser(email);
         }
 
         //creating user
@@ -73,7 +68,6 @@ namespace COMP306_Project_Backend.Controllers
                     emailId = userDto.Email
                 },
                userDto);
-
         }
 
         [HttpPut("/address")]

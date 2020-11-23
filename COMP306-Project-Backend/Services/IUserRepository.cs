@@ -10,7 +10,7 @@ namespace COMP306_Project_Backend.Services
     {
         Task <User> Authenticate(string email, string password);
         Task<bool> IsExistingUser(string email);
-        Task<User> GetById(string email);
+        Task<UserResponseDto> GetById(string email);
         Task<User> UpdateName(string name, User user);
         Task<User> UpdateAddress(AddressDto addressDto);
         Task<User> UpdatePhoneNumber(string phoneNumber);

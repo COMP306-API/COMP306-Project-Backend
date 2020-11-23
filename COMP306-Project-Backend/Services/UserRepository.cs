@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using AutoMapper;
 using COMP306_Project_Backend.Data;
 using COMP306_Project_Backend.Models;
 using System;
@@ -14,11 +15,15 @@ namespace COMP306_Project_Backend.Services
         IAmazonDynamoDB dynamoDBClient { get; set; }
         AmazonDynamoDBClient client;
         DynamoDBContext context;
+        private readonly IMapper _mapper;
 
         DynamoDBService _service = new DynamoDBService();
-        public UserRepository(IAmazonDynamoDB dynamoDBClient)
+        public UserRepository(IAmazonDynamoDB dynamoDBClient, IMapper mapper)
         {
             this.dynamoDBClient = dynamoDBClient;
+            _mapper = mapper;
+            client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.USEast2);
+            context = new DynamoDBContext(client);
         }
 
         public async Task<User> Authenticate(string email, string password)
@@ -27,16 +32,26 @@ namespace COMP306_Project_Backend.Services
           
         }
         //Get user by  email Id
-        public async Task<User> GetById(string email)
+        public async Task<UserResponseDto> GetById(string email)
         {
-            return await _service.GetById(email);
-
+            User user = await context.LoadAsync<User>(email, default(System.Threading.CancellationToken));
+            UserResponseDto result = null;
+            if (user != null)
+            {
+                result = _mapper.Map<UserResponseDto>(user);
+            }
+            return result;
         }
 
-        public Task<bool> IsExistingUser(string email)
+        public async Task<bool> IsExistingUser(string email)
         {
-            throw new NotImplementedException();
+            if (await GetById(email) != null)
+            {
+                return true;
+            }
+            return false;
         }
+
         //Creating a new user 
         public async Task<User> Save(User user)
         {

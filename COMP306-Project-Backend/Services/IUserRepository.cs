@@ -8,7 +8,7 @@ namespace COMP306_Project_Backend.Services
 {
     public interface IUserRepository
     {
-        Task <User> Authenticate(string email, string password);
+        Task <UserResponseDto> Authenticate(AuthenticationDto authDto);
         Task<bool> IsExistingUser(string email);
         Task<UserResponseDto> GetById(string email);
         Task<User> UpdateName(string name, User user);

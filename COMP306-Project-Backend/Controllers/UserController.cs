@@ -29,11 +29,13 @@ namespace COMP306_Project_Backend.Controllers
         [HttpPost("/authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticationDto authenticationDto)
         {
-            var userAutheticated = await _userRepo.Authenticate(authenticationDto.Email, authenticationDto.Password);
+            var userAutheticated = await _userRepo.Authenticate(authenticationDto);
+
             if (userAutheticated == null)
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
+
             return Ok(userAutheticated);
         }
 
@@ -87,7 +89,6 @@ namespace COMP306_Project_Backend.Controllers
                 emailId = mapuserDto.Email,
                 userDto
             });
-
         }
 
         [HttpPut("/password")]

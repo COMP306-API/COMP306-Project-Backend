@@ -40,6 +40,23 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(userAutheticated);
         }
 
+        //creating user
+        [HttpPost("/createUser")]
+        public async Task<IActionResult> Save([FromBody] UserDto userDto)
+        {
+            var result = await _userRepo.Save(userDto);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+            if (result == null)
+            {
+                return BadRequest("Email already exist.");
+            }
+
+            dictionary.Add("message", result);
+
+            return Ok(result);
+        }
+
         [HttpGet("/{email}")]
         public async Task<ActionResult<UserResponseDto>> GetById(string email)
         {
@@ -48,20 +65,6 @@ namespace COMP306_Project_Backend.Controllers
             {
                 return NotFound();
             }
-            return Ok(result);
-        }
-
-        //creating user
-        [HttpPost("/createUser")]
-        public async Task<ActionResult<string>> Save([FromBody] UserDto userDto)
-        {
-            string result = await _userRepo.Save(userDto);
-
-            if (result == null)
-            {
-                return BadRequest("Email already exist.");
-            }
-
             return Ok(result);
         }
 

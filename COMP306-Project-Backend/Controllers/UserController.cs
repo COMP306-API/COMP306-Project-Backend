@@ -53,7 +53,7 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(_userRepo.StringToDictionary(result));
         }
 
-        [HttpGet("/{email}")]
+        [HttpGet("/{email}/user")]
         public async Task<ActionResult<UserResponseDto>> GetById(string email)
         {
             var result = await _userRepo.GetById(email);

@@ -27,12 +27,12 @@ namespace COMP306_Project_Backend.Services
             _userRepository = userRepository;
         }
 
-        public async Task<string> Delete(string id)
+        public async Task<Dictionary<string, string>> Delete(string id)
         {
             Log log = await context.LoadAsync<Log>(id, default);
             await context.DeleteAsync(log, default);
 
-            return "Successfully deleted";
+            return _userRepository.StringToDictionary("Successfully deleted");
         }
 
         private async Task<bool> UserValidation(string email, string expectedType)

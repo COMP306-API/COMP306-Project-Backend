@@ -11,6 +11,6 @@ namespace COMP306_Project_Backend.Services
         Task<IEnumerable<LogDto>> GetAllByBusiness(string email);
         Task<IEnumerable<LogDto>> GetAllByCustomer(string email);
         Task<LogDto> Save(string businessEmail, string clientEmail);
-        Task <string> Delete(string id);
+        Task <Dictionary<string, string>> Delete(string id);
     }
 }

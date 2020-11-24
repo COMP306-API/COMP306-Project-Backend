@@ -17,5 +17,6 @@ namespace COMP306_Project_Backend.Services
         Task<bool> UpdatePhoneNumber(string email, string phoneNumber);
         Task<bool> UpdatePassword(AuthenticationDto authenticationDto);
         Task<string> Save(UserDto userDto);
+        Dictionary<string, string> StringToDictionary(string value);
     }
 }

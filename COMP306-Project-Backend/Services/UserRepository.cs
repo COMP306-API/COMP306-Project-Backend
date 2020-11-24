@@ -219,7 +219,15 @@ namespace COMP306_Project_Backend.Services
 
             var user = _mapper.Map<User>(userDto);
             await context.SaveAsync(user, default(System.Threading.CancellationToken));
+
             return "Successfully saved.";
+        }
+
+        public Dictionary<string, string> StringToDictionary(string value)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("message", value);
+            return dictionary;
         }
 
         private UserResponseDto MapToUserResponseDto(User user)

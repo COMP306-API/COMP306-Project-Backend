@@ -44,17 +44,14 @@ namespace COMP306_Project_Backend.Controllers
         [HttpPost("/createUser")]
         public async Task<IActionResult> Save([FromBody] UserDto userDto)
         {
-            var result = await _userRepo.Save(userDto);
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            string result = await _userRepo.Save(userDto);
 
             if (result == null)
             {
                 return BadRequest("Email already exist.");
             }
 
-            dictionary.Add("message", result);
-
-            return Ok(result);
+            return Ok(_userRepo.StringToDictionary(result));
         }
 
         [HttpGet("/{email}")]
@@ -76,7 +73,7 @@ namespace COMP306_Project_Backend.Controllers
             {
                 return BadRequest("Email is not valid");
             }
-            return Ok("Address successfully updated.");
+            return Ok(_userRepo.StringToDictionary("Address successfully updated."));
         }
 
         [HttpPut("/name/{name}")]
@@ -89,7 +86,7 @@ namespace COMP306_Project_Backend.Controllers
                 return BadRequest("Email is not valid");
             }
 
-            return Ok("Name successfully updated.");
+            return Ok(_userRepo.StringToDictionary("Name successfully updated."));
         }
 
         [HttpPut("/password")]
@@ -102,7 +99,7 @@ namespace COMP306_Project_Backend.Controllers
                 return BadRequest("Email is not valid");
             }
 
-            return Ok("Password updated");
+            return Ok(_userRepo.StringToDictionary("Password updated"));
         }
 
         [HttpPut("/phone/{phoneNumber}")]
@@ -115,7 +112,7 @@ namespace COMP306_Project_Backend.Controllers
                 return BadRequest("Email is not valid");
             }
 
-            return Ok("Phone number successfully updated.");
+            return Ok(_userRepo.StringToDictionary("Phone number successfully updated."));
         }
 
         [HttpGet("/allBusinesses")]

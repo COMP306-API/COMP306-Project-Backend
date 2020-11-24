@@ -244,9 +244,16 @@ namespace COMP306_Project_Backend.Services
         {
             var businessConditions = new List<ScanCondition>();
             businessConditions.Add(new ScanCondition("Type", ScanOperator.Equal, "business"));
-            List<UserResponseDto> businesses = await context.ScanAsync<UserResponseDto>(businessConditions).GetRemainingAsync();
+            List<User> businesses = await context.ScanAsync<User>(businessConditions).GetRemainingAsync();
 
-            return businesses;
+            var objDto = new List<UserResponseDto>();
+
+            foreach (var obj in businesses)
+            {
+                objDto.Add(_mapper.Map<UserResponseDto>(obj));
+            }
+
+            return objDto;
         }
     }
 }

@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 namespace COMP306_Project_Backend.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class LogController : ControllerBase
     {
         private ILogRepository _logRepository;
@@ -23,7 +22,7 @@ namespace COMP306_Project_Backend.Controllers
             _logRepository = logRepository;
         }
 
-        [HttpDelete("/{id}")]
+        [HttpDelete("/{id}/delete")]
         public async Task<Dictionary<string, string>> Delete(string id)
         {
             return await _logRepository.Delete(id);
@@ -56,7 +55,7 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(logs);
         }
 
-        [HttpPost("/create")]
+        [HttpPost("{businessEmail}/{clientEmail}/createLog")]
         public async Task<ActionResult<LogDto>> Save(string businessEmail, string clientEmail)
         {
             return Ok(await _logRepository.Save(businessEmail, clientEmail));

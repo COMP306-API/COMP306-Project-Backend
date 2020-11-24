@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 namespace COMP306_Project_Backend.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private IUserRepository _userRepo;
@@ -65,7 +64,7 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/address")]
+        [HttpPut("{email}/address")]
         public async Task<ActionResult<string>> UpdateAddress(string email, [FromBody] AddressDto addressDto)
         {
             bool result = await _userRepo.UpdateAddress(email, addressDto);
@@ -76,10 +75,10 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(_userRepo.StringToDictionary("Address successfully updated."));
         }
 
-        [HttpPut("/name/{name}")]
-        public async Task<ActionResult<string>> UpdateName(string emailId, string name)
+        [HttpPut("/{email}/{name}/name")]
+        public async Task<ActionResult<string>> UpdateName(string email, string name)
         {
-            bool result = await _userRepo.UpdateName(emailId, name);
+            bool result = await _userRepo.UpdateName(email, name);
 
             if (!result)
             {
@@ -102,10 +101,10 @@ namespace COMP306_Project_Backend.Controllers
             return Ok(_userRepo.StringToDictionary("Password updated"));
         }
 
-        [HttpPut("/phone/{phoneNumber}")]
-        public async Task<ActionResult<string>> UpdatePhoneNumber(string emailId, string phoneNumber)
+        [HttpPut("/{email}/{phoneNumber}/phone")]
+        public async Task<ActionResult<string>> UpdatePhoneNumber(string email, string phoneNumber)
         {
-            bool result = await _userRepo.UpdatePhoneNumber(emailId, phoneNumber);
+            bool result = await _userRepo.UpdatePhoneNumber(email, phoneNumber);
 
             if (!result)
             {
